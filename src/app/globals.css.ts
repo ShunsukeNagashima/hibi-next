@@ -15,6 +15,8 @@ globalStyle('html', {
 
 globalStyle('body', {
   backgroundColor: '#fcfaf2',
+  backgroundImage: 'url("/texture.png")',
+  backgroundRepeat: 'repeat',
   color: '#333',
   height: '100dvh',
 });
