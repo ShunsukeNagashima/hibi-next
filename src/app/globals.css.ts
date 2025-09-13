@@ -21,12 +21,6 @@ globalStyle('body', {
   height: '100dvh',
 });
 
-globalStyle('img', {
-  maxWidth: '100%',
-  height: 'auto',
-  display: 'block',
-});
-
 globalStyle('a', {
   color: 'inherit',
   textDecoration: 'none',
@@ -45,5 +39,14 @@ globalStyle('.container', {
     '(min-width: 1024px)': {
       padding: '0 160px',
     },
+  },
+});
+
+// Color variables
+globalStyle(':root', {
+  vars: {
+    '--color-primary': '#000a02',
+    '--color-background': '#fcfaf2',
+    '--color-white': '#fffffd',
   },
 });

@@ -5,7 +5,7 @@ import { usePageAnimations } from '@/hooks/use-page-animations';
 import type { BackgroundPattern } from '../../utils/season';
 import { AnimatedLogo } from './AnimatedLogo';
 import * as styles from './Hero.css';
-import WeatherBackground from './WeatherBackground';
+import { WeatherBackground } from './WeatherBackground';
 
 interface HeroProps {
   backgroundImages: BackgroundPattern;

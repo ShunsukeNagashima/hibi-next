@@ -24,7 +24,8 @@
       "correctness": {
         "noUndeclaredVariables": "warn",
         "noUnusedVariables": "warn",
-        "noUnusedImports": "warn"
+        "noUnusedImports": "warn",
+        "useUniqueElementIds": "off"
       },
       "suspicious": {
         "noDuplicateProperties": "off"

@@ -3,7 +3,7 @@ import { keyframes, style } from '@vanilla-extract/css';
 export const hero = style({
   position: 'relative',
   width: '100vw',
-  height: '100vh',
+  height: '100%',
   overflow: 'visible',
   '@media': {
     '(max-width: 768px)': {
@@ -51,7 +51,6 @@ export const scrollBar = style({
   position: 'relative',
   width: '104px',
   height: '1px',
-  background: '#ffffff',
   '@media': {
     '(max-width: 768px)': {
       width: '52px',

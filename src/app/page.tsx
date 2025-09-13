@@ -1,20 +1,24 @@
+import { About } from '../components/About/About';
 import DayCounterOverlay from '../components/Hero/DayCounterOverlay';
 import Hero from '../components/Hero/Hero';
-import { getBackgroundImage, getSeason } from '../utils/season';
+import { PageLayout } from '../components/Layout/PageLayout';
+import { getAbout } from '../lib/microcms';
+import { getWeatherBackgroundImages } from '../utils/weather';
 
-export default function Home() {
-  // 現在の季節を取得
-  const currentSeason = getSeason();
+export default async function Home() {
+  // 天気APIから背景画像を取得
+  const backgroundImages = await getWeatherBackgroundImages();
 
-  // とりあえずsunnyで背景画像を取得（後で天気APIと連携）
-  const backgroundImages = getBackgroundImage(currentSeason, 'sunny');
+  // microCMSからAboutデータを取得
+  const aboutData = await getAbout();
 
   return (
     <>
       <DayCounterOverlay />
-      <main>
+      <PageLayout>
         <Hero backgroundImages={backgroundImages} dataSection="hero" />
-      </main>
+        <About aboutData={aboutData} dataSection="about" />
+      </PageLayout>
     </>
   );
 }
