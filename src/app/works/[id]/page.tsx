@@ -6,7 +6,7 @@ import { getWork } from '../../../lib/microcms';
 import type { Work } from '../../../types/work';
 
 interface WorkPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 async function getWorkData(id: string): Promise<Work | null> {
@@ -19,7 +19,8 @@ async function getWorkData(id: string): Promise<Work | null> {
 }
 
 export default async function WorkPage({ params }: WorkPageProps) {
-  const work = await getWorkData(params.id);
+  const { id } = await params;
+  const work = await getWorkData(id);
 
   if (!work) {
     notFound();
@@ -34,7 +35,8 @@ export default async function WorkPage({ params }: WorkPageProps) {
 }
 
 export async function generateMetadata({ params }: WorkPageProps) {
-  const work = await getWorkData(params.id);
+  const { id } = await params;
+  const work = await getWorkData(id);
 
   if (!work) {
     return {
