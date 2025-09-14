@@ -80,10 +80,10 @@ export const usePageAnimations = ({
   }, []);
 
   const checkAndNavigateToSection = useCallback(() => {
-    // sessionStorageのターゲットセクションをチェック
-    const targetSection = sessionStorage.getItem('target-section');
+    // localStorageのターゲットセクションをチェック
+    const targetSection = localStorage.getItem('target-section');
     if (targetSection) {
-      sessionStorage.removeItem('target-section');
+      localStorage.removeItem('target-section');
 
       // 少し待ってからスムーススクロール
       setTimeout(() => {
@@ -99,7 +99,7 @@ export const usePageAnimations = ({
       return;
     }
 
-    // sessionStorageにない場合はURLのハッシュをチェック
+    // localStorageにない場合はURLのハッシュをチェック
     const hash = window.location.hash;
     if (hash && hash !== '#' && hash !== '#hero') {
       const sectionName = hash.substring(1);

@@ -71,16 +71,16 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose }) => {
       // On works detail page: use Next.js router with hash navigation
       const targetUrl = `/#${section}`;
 
-      // セクション情報をsessionStorageに保存
-      sessionStorage.setItem('target-section', section);
+      // セクション情報をlocalStorageに保存
+      localStorage.setItem('target-section', section);
 
       router.push(targetUrl);
     } else {
       // On other pages: navigate to home page with hash using Next.js router
       const targetUrl = `/#${section}`;
 
-      // セクション情報をsessionStorageに保存
-      sessionStorage.setItem('target-section', section);
+      // セクション情報をlocalStorageに保存
+      localStorage.setItem('target-section', section);
 
       router.push(targetUrl);
     }
