@@ -48,14 +48,21 @@ export const horizontalScroll = style({
   },
 });
 
-// Global style for all direct children of horizontal scroll
-globalStyle('.horizontal-scroll > *', {
+// Global style for all direct children of horizontal scroll (except footer)
+globalStyle('.horizontal-scroll > *:not([data-section="footer"])', {
   flexShrink: 0,
   height: '100%',
   direction: 'ltr',
   backgroundColor: 'rgba(252, 250, 242, 0.5)',
   backgroundImage: 'url("/texture.png")',
   backgroundRepeat: 'repeat',
+});
+
+// Apply basic layout styles to footer too (without background)
+globalStyle('.horizontal-scroll > [data-section="footer"]', {
+  flexShrink: 0,
+  height: '100%',
+  direction: 'ltr',
 });
 
 export const horizontalScrollChild = style({
