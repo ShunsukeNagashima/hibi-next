@@ -165,9 +165,9 @@ export function Gallery({
                   <Image
                     src={image.src}
                     alt={image.alt}
-                    width={1000}
-                    height={1000}
-                    unoptimized
+                    width={0}
+                    height={0}
+                    sizes="100%"
                     className={`${styles.galleryImage} ${
                       index === colorImageIndex ? '' : styles.grayscale
                     }`}
@@ -177,9 +177,9 @@ export function Gallery({
                 <Image
                   src={image.src}
                   alt={image.alt}
-                  width={1000}
-                  height={1000}
-                  unoptimized
+                  width={0}
+                  height={0}
+                  sizes="100%"
                   className={`${styles.galleryImage} ${
                     index === colorImageIndex ? '' : styles.grayscale
                   }`}
@@ -200,9 +200,9 @@ export function Gallery({
                   <Image
                     src={image.src}
                     alt={image.alt}
-                    width={1000}
-                    height={1000}
-                    unoptimized
+                    width={0}
+                    height={0}
+                    sizes="100%"
                     className={`${styles.galleryImage} ${
                       index + imageSet1.length === colorImageIndex ? '' : styles.grayscale
                     }`}
@@ -212,9 +212,9 @@ export function Gallery({
                 <Image
                   src={image.src}
                   alt={image.alt}
-                  width={1000}
-                  height={1000}
-                  unoptimized
+                  width={0}
+                  height={0}
+                  sizes="100%"
                   className={`${styles.galleryImage} ${
                     index + imageSet1.length === colorImageIndex ? '' : styles.grayscale
                   }`}
