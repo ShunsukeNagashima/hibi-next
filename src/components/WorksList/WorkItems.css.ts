@@ -13,7 +13,7 @@ export const caseContent = style({
 export const caseList = style({
   display: 'flex',
   flexDirection: 'row-reverse',
-  gap: '24px',
+  gap: '16px',
   padding: '0 40px',
   height: '100%',
   alignItems: 'stretch',
