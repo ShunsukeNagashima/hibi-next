@@ -2,6 +2,7 @@
 
 import type React from 'react';
 import { useState } from 'react';
+import { verticalTextJp } from '../../styles/common.css';
 import Menu from './Menu';
 import * as styles from './NavigationWrapper.css';
 
@@ -14,7 +15,7 @@ const NavigationWrapper: React.FC = () => {
         <div className={styles.iconWrapper}>
           <span className={styles.menuIcon} />
         </div>
-        <span>目次</span>
+        <span className={verticalTextJp}>目次</span>
       </button>
       <Menu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </>
