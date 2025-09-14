@@ -44,8 +44,25 @@ export async function generateMetadata({ params }: WorkPageProps) {
     };
   }
 
+  const description = work.summary || work.subtitle || '';
+  const ogImage = work.images?.[0]?.url || '/hibi-ogp.png';
+
   return {
     title: `${work.title} - 日々`,
-    description: work.summary || work.subtitle || '',
+    description,
+    openGraph: {
+      title: `${work.title} - 日々`,
+      description,
+      images: ogImage,
+      url: `https://hibi-atelier.com/works/${work.id}`,
+      type: 'website',
+      siteName: '日々',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${work.title} - 日々`,
+      description,
+      images: ogImage,
+    },
   };
 }

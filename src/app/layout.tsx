@@ -5,6 +5,23 @@ import { PageTransitionWrapper } from '../components/PageTransition';
 export const metadata: Metadata = {
   title: '日々',
   description: 'Portfolio Site',
+  icons: {
+    icon: '/favicon.svg',
+  },
+  openGraph: {
+    title: '日々',
+    description: 'Portfolio Site',
+    images: '/hibi-ogp.png',
+    url: 'https://hibi-atelier.com',
+    type: 'website',
+    siteName: '日々',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '日々',
+    description: 'Portfolio Site',
+    images: '/hibi-ogp.png',
+  },
 };
 
 export default function RootLayout({
