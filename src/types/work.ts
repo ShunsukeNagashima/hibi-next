@@ -1,20 +1,36 @@
 export type WorkCategory = 'architecture' | 'pottery' | 'others';
 
+export interface Contributor {
+  fieldId: string;
+  role: string;
+  names: string;
+}
+
+export interface Concept {
+  fieldId: string;
+  title: string;
+  body: string;
+}
+
 export interface Work {
   id: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  revisedAt: string;
   title: string;
-  description: string;
-  location: string;
-  category: WorkCategory;
+  subtitle?: string;
+  category: WorkCategory[];
   images: {
     url: string;
     height: number;
     width: number;
   }[];
+  summary?: string;
+  contributors?: Contributor[];
+  concepts?: Concept[];
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+  description: string;
+  location: string;
 }
 
 export interface WorksResponse {

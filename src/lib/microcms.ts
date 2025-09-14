@@ -49,3 +49,14 @@ export const getWorksByCategory = async (
     },
   });
 };
+
+export const getWorksCategoryCount = async (category: string): Promise<number> => {
+  const response = await client.get({
+    endpoint: 'works',
+    queries: {
+      filters: `category[contains]${category}`,
+      limit: 1,
+    },
+  });
+  return response.totalCount;
+};
