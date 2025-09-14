@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { globalStyle, style } from '@vanilla-extract/css';
 
 export const menuButton = style({
   display: 'flex',
@@ -13,6 +13,18 @@ export const menuButton = style({
   padding: 0,
   color: 'inherit',
   fontFamily: 'inherit',
+  opacity: 0,
+  transition: 'opacity 0.3s ease',
+});
+
+export const menuButtonShow = style({
+  opacity: 1,
+});
+
+// 元のCSSの .menu-button span に相当するスタイル
+globalStyle(`${menuButton} span`, {
+  marginRight: 'auto',
+  marginLeft: 'auto',
 });
 
 export const iconWrapper = style({

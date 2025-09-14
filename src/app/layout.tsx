@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css.ts';
+import { PageTransitionWrapper } from '../components/PageTransition';
 
 export const metadata: Metadata = {
   title: '日々',
@@ -21,7 +22,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body suppressHydrationWarning={true}>{children}</body>
+      <body suppressHydrationWarning={true}>
+        <PageTransitionWrapper>{children}</PageTransitionWrapper>
+      </body>
     </html>
   );
 }

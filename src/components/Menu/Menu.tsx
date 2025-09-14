@@ -68,21 +68,31 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose }) => {
         });
       }
     } else if (isWorksDetailPage) {
-      // On works detail page: use Next.js router with hash navigation
+      // On works detail page: use PageTransition with hash navigation
       const targetUrl = `/#${section}`;
 
       // セクション情報をlocalStorageに保存
       localStorage.setItem('target-section', section);
 
-      router.push(targetUrl);
+      // PageTransitionWrapperを使って遷移
+      if (window.navigateWithTransition) {
+        window.navigateWithTransition(targetUrl);
+      } else {
+        router.push(targetUrl);
+      }
     } else {
-      // On other pages: navigate to home page with hash using Next.js router
+      // On other pages: navigate to home page with hash using PageTransitionWrapper
       const targetUrl = `/#${section}`;
 
       // セクション情報をlocalStorageに保存
       localStorage.setItem('target-section', section);
 
-      router.push(targetUrl);
+      // PageTransitionWrapperを使って遷移
+      if (window.navigateWithTransition) {
+        window.navigateWithTransition(targetUrl);
+      } else {
+        router.push(targetUrl);
+      }
     }
   };
 

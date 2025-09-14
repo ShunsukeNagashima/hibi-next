@@ -42,13 +42,8 @@ export const usePageAnimations = ({
 
     if (hasAnchor) {
       // アンカー付きの場合：メニューは即座に表示、他は通常通り2秒後
-      if (
-        typeof window !== 'undefined' &&
-        'showFixedMenu' in window &&
-        typeof (window as { showFixedMenu?: () => void }).showFixedMenu === 'function'
-      ) {
-        (window as { showFixedMenu: () => void }).showFixedMenu();
-      }
+      // メニュー表示イベントを発火
+      window.dispatchEvent(new CustomEvent('showFixedMenu'));
 
       // 背景画像とスクロールインディケータは通常通り2秒後
       setTimeout(() => {
@@ -65,13 +60,9 @@ export const usePageAnimations = ({
         if (weatherBackgroundRef.current) {
           weatherBackgroundRef.current.style.opacity = '1';
         }
-        if (
-          typeof window !== 'undefined' &&
-          'showFixedMenu' in window &&
-          typeof (window as { showFixedMenu?: () => void }).showFixedMenu === 'function'
-        ) {
-          (window as { showFixedMenu: () => void }).showFixedMenu();
-        }
+        // メニュー表示イベントを発火
+        console.log('use-page-animations: dispatching showFixedMenu event');
+        window.dispatchEvent(new CustomEvent('showFixedMenu'));
         if (scrollIndicatorRef.current) {
           scrollIndicatorRef.current.style.opacity = '1';
         }

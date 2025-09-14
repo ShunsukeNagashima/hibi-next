@@ -37,18 +37,18 @@ export function PageLayout({
     }
   }, [externalShowFixedMenu, enableAnimation]);
 
-  // アニメーション用にfixed-menuを表示する関数
+  // アニメーション完了時にメニューを表示
   useEffect(() => {
     if (enableAnimation) {
-      const showFixedMenu = () => {
+      const handleAnimationComplete = () => {
         setInternalShowFixedMenu(true);
       };
 
-      // グローバルに公開してアニメーションから呼び出せるようにする
-      (window as { showFixedMenu?: () => void }).showFixedMenu = showFixedMenu;
+      // カスタムイベントでメニュー表示を受信
+      window.addEventListener('showFixedMenu', handleAnimationComplete);
 
       return () => {
-        delete (window as { showFixedMenu?: () => void }).showFixedMenu;
+        window.removeEventListener('showFixedMenu', handleAnimationComplete);
       };
     }
   }, [enableAnimation]);
