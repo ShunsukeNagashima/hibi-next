@@ -1,5 +1,6 @@
 import { createClient } from 'microcms-js-sdk';
 import type { About } from '../types/about';
+import type { ContactResponse } from '../types/contact';
 import type { GalleriesResponse } from '../types/gallery';
 import type { WorksResponse } from '../types/work';
 
@@ -59,4 +60,10 @@ export const getWorksCategoryCount = async (category: string): Promise<number> =
     },
   });
   return response.totalCount;
+};
+
+export const getContact = async (): Promise<ContactResponse> => {
+  return await client.get({
+    endpoint: 'contact',
+  });
 };

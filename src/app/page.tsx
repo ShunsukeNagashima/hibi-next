@@ -1,10 +1,17 @@
 import { About } from '../components/About/About';
+import { Contact } from '../components/Contact/Contact';
 import { Gallery } from '../components/Gallery/Gallery';
 import DayCounterOverlay from '../components/Hero/DayCounterOverlay';
 import Hero from '../components/Hero/Hero';
 import { PageLayout } from '../components/Layout/PageLayout';
 import { WorksList } from '../components/WorksList/WorksList';
-import { getAbout, getGalleries, getWorksByCategory, getWorksCategoryCount } from '../lib/microcms';
+import {
+  getAbout,
+  getContact,
+  getGalleries,
+  getWorksByCategory,
+  getWorksCategoryCount,
+} from '../lib/microcms';
 import type { WorkCategory } from '../types/work';
 import { getWeatherBackgroundImages } from '../utils/weather';
 
@@ -40,6 +47,10 @@ export default async function Home() {
     })
   );
 
+  // Contactデータを取得
+  const contactResponse = await getContact();
+  const contactItems = contactResponse?.contents || [];
+
   return (
     <>
       <DayCounterOverlay />
@@ -53,6 +64,7 @@ export default async function Home() {
           dataSection="gallery"
         />
         <WorksList categoriesData={categoriesData} dataSection="works-list" />
+        <Contact contactItems={contactItems} dataSection="contact" />
       </PageLayout>
     </>
   );
