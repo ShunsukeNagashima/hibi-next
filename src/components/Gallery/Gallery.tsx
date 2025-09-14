@@ -4,11 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import '../../styles/animations.css';
+import { useBlurAnimation } from '../../hooks/useBlurAnimation';
 import * as animations from '../../styles/animations.css';
 import type { GalleryImage } from '../../types/gallery';
 import type { Work } from '../../types/work';
 import * as styles from './Gallery.css';
-import { useBlurAnimation } from './useBlurAnimation';
 
 interface ImageData {
   type: 'gallery' | 'work';

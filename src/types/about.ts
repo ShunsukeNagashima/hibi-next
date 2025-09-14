@@ -1,5 +1,4 @@
 export interface Owner {
-  fieldId: string;
   name: string;
 }
 

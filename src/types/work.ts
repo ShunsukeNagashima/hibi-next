@@ -1,13 +1,11 @@
 export type WorkCategory = 'architecture' | 'pottery' | 'others';
 
 export interface Contributor {
-  fieldId: string;
   role: string;
   names: string;
 }
 
 export interface Concept {
-  fieldId: string;
   title: string;
   body: string;
 }

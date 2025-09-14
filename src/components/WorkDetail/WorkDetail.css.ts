@@ -213,19 +213,7 @@ export const galleryImage = style({
   height: '100%',
 });
 
-// グローバルスタイル for img and blur animation
-globalStyle('.inview-blur', {
-  opacity: 0,
-  filter: 'blur(20px)',
-  transform: 'scale(1.1)',
-  transition: 'opacity 1.2s ease-out, filter 1.2s ease-out, transform 1.2s ease-out',
-});
-
-globalStyle('.inview-blur.inview', {
-  opacity: 1,
-  filter: 'blur(0px)',
-  transform: 'scale(1)',
-});
+// グローバルスタイル for img
 
 globalStyle(`${galleryImage} img`, {
   width: 'auto',
