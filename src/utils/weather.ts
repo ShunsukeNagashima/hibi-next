@@ -1,5 +1,6 @@
 'use server';
 
+import { logDebug, logError, logInfo } from './logger';
 import { type BackgroundPattern, getBackgroundImage, getSeason, normalizeWeather } from './season';
 
 const WEATHER_API_KEY = process.env.OPENWEATHER_API_KEY;
@@ -22,7 +23,7 @@ export async function getWeatherBackgroundImages(): Promise<BackgroundPattern> {
     }
 
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${FIXED_LAT}&lon=${FIXED_LON}&appid=${WEATHER_API_KEY}`;
-    console.log('Fetching weather from:', url);
+    logDebug('Fetching weather from OpenWeatherMap API', { url });
 
     const response = await fetch(url, {
       next: { revalidate: 3600 },
@@ -33,10 +34,8 @@ export async function getWeatherBackgroundImages(): Promise<BackgroundPattern> {
     }
 
     const data = await response.json();
-    console.log('OpenWeatherMap API response:', JSON.stringify(data, null, 2));
 
     const weatherMain = data.weather[0]?.main?.toLowerCase();
-    console.log('Weather main:', weatherMain);
 
     const season = getSeason(new Date());
     const weather = normalizeWeather(weatherMain);
@@ -47,7 +46,7 @@ export async function getWeatherBackgroundImages(): Promise<BackgroundPattern> {
 
     const backgroundImages = getBackgroundImage(season, weather, seed);
 
-    console.log('Weather data retrieved', {
+    logInfo('Weather data successfully retrieved', {
       apiResponse: data,
       weather: weatherMain,
       season,
@@ -60,10 +59,14 @@ export async function getWeatherBackgroundImages(): Promise<BackgroundPattern> {
   } catch (error) {
     const season = getSeason(new Date());
 
-    console.error('Weather API failed, using fallback', error, {
-      season,
-      fallbackWeather: 'sunny',
-    });
+    logError(
+      'Weather API failed, using fallback',
+      error instanceof Error ? error : new Error(String(error)),
+      {
+        season,
+        fallbackWeather: 'sunny',
+      }
+    );
 
     // フォールバック時も同じシード値を使用
     const today = new Date();

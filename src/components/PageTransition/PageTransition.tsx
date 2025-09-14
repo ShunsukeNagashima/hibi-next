@@ -40,14 +40,11 @@ const PageTransitionWrapper: React.FC<PageTransitionProps> = ({ children }) => {
 
   const navigateWithTransition = useCallback(
     (url: string) => {
-      console.log('🚀 Starting transition to:', url);
-
       // スライドインアニメーション開始
       setOverlayState('slideIn');
 
       // スライドインアニメーション完了後にページ遷移
       setTimeout(() => {
-        console.log('⏰ Executing navigation after slide in');
         router.push(url);
       }, 900); // アニメーション時間
     },
@@ -56,8 +53,6 @@ const PageTransitionWrapper: React.FC<PageTransitionProps> = ({ children }) => {
 
   // パスが変わったときの処理
   useEffect(() => {
-    console.log('📍 Pathname changed from', prevPathnameRef.current, 'to', pathname);
-
     // 初回ロードは除外
     if (prevPathnameRef.current === pathname) {
       return;
@@ -65,7 +60,6 @@ const PageTransitionWrapper: React.FC<PageTransitionProps> = ({ children }) => {
 
     // ページが変わったら、少し待ってからスライドアウト開始
     if (overlayState === 'slideIn') {
-      console.log('🎬 Starting slide out after page change');
       setTimeout(() => {
         setOverlayState('slideOut');
       }, 200); // 少し待ってからスライドアウト
@@ -76,7 +70,6 @@ const PageTransitionWrapper: React.FC<PageTransitionProps> = ({ children }) => {
 
   // スライドアウト完了時の処理
   const handleSlideOutComplete = useCallback(() => {
-    console.log('✅ Slide out animation completed');
     setOverlayState('hidden');
 
     // PageTransition完了イベントを発火
@@ -107,7 +100,6 @@ const PageTransitionWrapper: React.FC<PageTransitionProps> = ({ children }) => {
         return;
       }
 
-      console.log('🖱️ Link clicked:', href);
       e.preventDefault();
       navigateWithTransition(href);
     },
@@ -144,7 +136,6 @@ const PageTransitionWrapper: React.FC<PageTransitionProps> = ({ children }) => {
             variants={overlayVariants}
             transition={overlayTransition}
             onAnimationComplete={() => {
-              console.log(`✅ ${overlayState} animation completed`);
               if (overlayState === 'slideOut') {
                 handleSlideOutComplete();
               }
