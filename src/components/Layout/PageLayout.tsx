@@ -45,10 +45,10 @@ export function PageLayout({
       };
 
       // グローバルに公開してアニメーションから呼び出せるようにする
-      (window as any).showFixedMenu = showFixedMenu;
+      (window as { showFixedMenu?: () => void }).showFixedMenu = showFixedMenu;
 
       return () => {
-        delete (window as any).showFixedMenu;
+        delete (window as { showFixedMenu?: () => void }).showFixedMenu;
       };
     }
   }, [enableAnimation]);
