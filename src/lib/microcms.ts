@@ -2,7 +2,7 @@ import { createClient } from 'microcms-js-sdk';
 import type { About } from '../types/about';
 import type { ContactResponse } from '../types/contact';
 import type { GalleriesResponse } from '../types/gallery';
-import type { WorksResponse } from '../types/work';
+import type { Work, WorksResponse } from '../types/work';
 
 if (!process.env.MICROCMS_SERVICE_DOMAIN) {
   throw new Error('MICROCMS_SERVICE_DOMAIN is not defined in environment variables');
@@ -33,6 +33,13 @@ export const getGalleries = async (
       offset,
       limit,
     },
+  });
+};
+
+export const getWork = async (contentId: string): Promise<Work> => {
+  return await client.get({
+    endpoint: 'works',
+    contentId,
   });
 };
 
