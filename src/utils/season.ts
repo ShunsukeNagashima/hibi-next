@@ -54,8 +54,7 @@ export type BackgroundPattern = {
  */
 export function getBackgroundImage(
   season: Season,
-  weather: 'sunny' | 'cloudy' | 'rainy' | 'snowy',
-  seed?: number
+  weather: 'sunny' | 'cloudy' | 'rainy' | 'snowy'
 ): BackgroundPattern {
   const patterns: Record<Season, Record<string, string[]>> = {
     spring: {
@@ -85,21 +84,7 @@ export function getBackgroundImage(
   };
 
   const options = patterns[season][weather] || patterns[season].sunny;
-
-  // 選択肢が一つしかない場合はランダム不要
-  if (options.length === 1) {
-    const selectedImage = options[0];
-    return {
-      desktop: `/${selectedImage}.png`,
-      mobile: `/${selectedImage}-sp.png`,
-    };
-  }
-
-  // seedが提供されている場合は決定論的に選択、なければランダム
-  const randomValue =
-    seed !== undefined ? seed % options.length : Math.floor(Math.random() * options.length);
-
-  const selectedImage = options[randomValue];
+  const selectedImage = options[Math.floor(Math.random() * options.length)];
 
   return {
     desktop: `/${selectedImage}.png`,

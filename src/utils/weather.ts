@@ -17,17 +17,13 @@ export async function getWeatherBackgroundImages(): Promise<BackgroundPattern> {
     if (!WEATHER_API_KEY) {
       console.warn('OpenWeatherMap API key not configured. Using fallback weather.');
       const season = getSeason(new Date());
-      const today = new Date();
-      const seed = today.getFullYear() * 1000 + today.getMonth() * 31 + today.getDate();
-      return getBackgroundImage(season, 'sunny', seed);
+      return getBackgroundImage(season, 'sunny');
     }
 
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${FIXED_LAT}&lon=${FIXED_LON}&appid=${WEATHER_API_KEY}`;
     logDebug('Fetching weather from OpenWeatherMap API', { url });
 
-    const response = await fetch(url, {
-      next: { revalidate: 3600 },
-    });
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(`Weather API responded with status: ${response.status}`);
@@ -40,18 +36,13 @@ export async function getWeatherBackgroundImages(): Promise<BackgroundPattern> {
     const season = getSeason(new Date());
     const weather = normalizeWeather(weatherMain);
 
-    // シード値として現在の日を使用（一日中同じ画像）
-    const today = new Date();
-    const seed = today.getFullYear() * 1000 + today.getMonth() * 31 + today.getDate();
-
-    const backgroundImages = getBackgroundImage(season, weather, seed);
+    const backgroundImages = getBackgroundImage(season, weather);
 
     logInfo('Weather data successfully retrieved', {
       apiResponse: data,
       weather: weatherMain,
       season,
       normalizedWeather: weather,
-      seed,
       backgroundImages,
     });
 
@@ -68,10 +59,6 @@ export async function getWeatherBackgroundImages(): Promise<BackgroundPattern> {
       }
     );
 
-    // フォールバック時も同じシード値を使用
-    const today = new Date();
-    const seed = today.getFullYear() * 1000 + today.getMonth() * 31 + today.getDate();
-
-    return getBackgroundImage(season, 'sunny', seed);
+    return getBackgroundImage(season, 'sunny');
   }
 }
