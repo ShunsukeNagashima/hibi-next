@@ -73,3 +73,43 @@ export const horizontalScrollChild = style({
   backgroundImage: 'url("/texture.png")',
   backgroundRepeat: 'repeat',
 });
+
+export const fixedMenu = style({
+  position: 'fixed',
+  top: 0,
+  right: '80px',
+  width: '16px',
+  lineHeight: '1.25em',
+  display: 'flex',
+  flexDirection: 'column',
+  color: 'var(--color-primary)',
+  zIndex: 1000,
+  justifyContent: 'space-between',
+  height: '100vh',
+  padding: '80px 0',
+  boxSizing: 'border-box',
+  opacity: 0,
+  transition: 'opacity 2.5s ease-in-out',
+  '@supports': {
+    '(height: 100dvh)': {
+      height: '100dvh',
+    },
+  },
+  '@media': {
+    '(max-width: 768px)': {
+      right: '24px',
+      padding: '64px 0',
+    },
+  },
+});
+
+export const fixedMenuShow = style({
+  opacity: 1,
+});
+
+export const seasonInfo = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '24px',
+  alignItems: 'center',
+});

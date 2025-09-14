@@ -1,14 +1,57 @@
 'use client';
 
-import { type ReactNode, useEffect, useRef } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
+import { CurrentDate } from '@/components/CurrentDate';
+import { NavigationWrapper } from '@/components/Menu';
+import { SeasonDisplay } from '@/components/SeasonDisplay';
 import * as styles from './PageLayout.css';
 
 interface PageLayoutProps {
   children: ReactNode;
+  showFixedMenu?: boolean;
+  enableAnimation?: boolean;
 }
 
-export function PageLayout({ children }: PageLayoutProps) {
+export function PageLayout({
+  children,
+  showFixedMenu: externalShowFixedMenu,
+  enableAnimation = false,
+}: PageLayoutProps) {
   const scrollContainerRef = useRef<HTMLElement>(null);
+  const fixedMenuRef = useRef<HTMLDivElement>(null);
+  const [internalShowFixedMenu, setInternalShowFixedMenu] = useState(false);
+
+  const shouldShowFixedMenu =
+    externalShowFixedMenu !== undefined ? externalShowFixedMenu : internalShowFixedMenu;
+
+  useEffect(() => {
+    // externalShowFixedMenuが指定されていない場合のみ自動制御
+    if (externalShowFixedMenu === undefined) {
+      if (enableAnimation) {
+        // ホームページ：アニメーション制御を使用（初期は非表示）
+        setInternalShowFixedMenu(false);
+      } else {
+        // 他のページ：即座に表示
+        setInternalShowFixedMenu(true);
+      }
+    }
+  }, [externalShowFixedMenu, enableAnimation]);
+
+  // アニメーション用にfixed-menuを表示する関数
+  useEffect(() => {
+    if (enableAnimation) {
+      const showFixedMenu = () => {
+        setInternalShowFixedMenu(true);
+      };
+
+      // グローバルに公開してアニメーションから呼び出せるようにする
+      (window as any).showFixedMenu = showFixedMenu;
+
+      return () => {
+        delete (window as any).showFixedMenu;
+      };
+    }
+  }, [enableAnimation]);
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
@@ -55,6 +98,19 @@ export function PageLayout({ children }: PageLayoutProps) {
 
   return (
     <div className={styles.pageContainer}>
+      {/* 固定メニュー */}
+      <div
+        ref={fixedMenuRef}
+        className={`${styles.fixedMenu} ${shouldShowFixedMenu ? styles.fixedMenuShow : ''}`}
+        id="fixed-menu"
+      >
+        <NavigationWrapper />
+        <div className={styles.seasonInfo}>
+          <CurrentDate />
+          <SeasonDisplay />
+        </div>
+      </div>
+
       <main
         className={`${styles.horizontalScroll} horizontal-scroll`}
         id="scroll-container"

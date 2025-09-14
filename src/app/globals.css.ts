@@ -42,6 +42,26 @@ globalStyle('.container', {
   },
 });
 
+// Vertical text utility classes
+globalStyle('.vertical-text-jp', {
+  writingMode: 'vertical-rl',
+  textOrientation: 'mixed',
+  letterSpacing: '0.25em',
+});
+
+globalStyle('.vertical-text-en', {
+  writingMode: 'vertical-rl',
+  textOrientation: 'mixed',
+});
+
+globalStyle('.vertical-text-centered', {
+  writingMode: 'vertical-rl',
+  textOrientation: 'mixed',
+  letterSpacing: '0.25em',
+  marginRight: 'auto',
+  marginLeft: 'auto',
+});
+
 // Color variables
 globalStyle(':root', {
   vars: {

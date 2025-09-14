@@ -55,7 +55,7 @@ export default async function Home() {
   return (
     <>
       <DayCounterOverlay />
-      <PageLayout>
+      <PageLayout enableAnimation={true}>
         <Hero backgroundImages={backgroundImages} dataSection="hero" />
         <About aboutData={aboutData} dataSection="about" />
         <Gallery

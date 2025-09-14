@@ -41,10 +41,9 @@ export const usePageAnimations = ({
     const hasAnchor = hash && hash !== '#' && hash !== '#hero';
 
     if (hasAnchor) {
-      // アンカー付きの場合：メニューは即座に表示、他は通常通り
-      const fixedMenu = document.getElementById('fixed-menu');
-      if (fixedMenu) {
-        fixedMenu.classList.add('show');
+      // アンカー付きの場合：メニューは即座に表示、他は通常通り2秒後
+      if ((window as any).showFixedMenu) {
+        (window as any).showFixedMenu();
       }
 
       // 背景画像とスクロールインディケータは通常通り2秒後
@@ -57,14 +56,13 @@ export const usePageAnimations = ({
         }
       }, 2000);
     } else {
-      // 通常の場合：全て2秒後に表示
+      // 通常の場合：ロゴアニメーション開始から2秒後に全て表示
       setTimeout(() => {
         if (weatherBackgroundRef.current) {
           weatherBackgroundRef.current.style.opacity = '1';
         }
-        const fixedMenu = document.getElementById('fixed-menu');
-        if (fixedMenu) {
-          fixedMenu.classList.add('show');
+        if ((window as any).showFixedMenu) {
+          (window as any).showFixedMenu();
         }
         if (scrollIndicatorRef.current) {
           scrollIndicatorRef.current.style.opacity = '1';
@@ -74,6 +72,7 @@ export const usePageAnimations = ({
   }, []);
 
   const checkAndNavigateToSection = useCallback(() => {
+    // sessionStorageのターゲットセクションをチェック
     const targetSection = sessionStorage.getItem('target-section');
     if (targetSection) {
       sessionStorage.removeItem('target-section');
@@ -81,6 +80,25 @@ export const usePageAnimations = ({
       // 少し待ってからスムーススクロール
       setTimeout(() => {
         const sectionElement = document.querySelector(`[data-section="${targetSection}"]`);
+        if (sectionElement) {
+          sectionElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'end',
+          });
+        }
+      }, 200);
+      return;
+    }
+
+    // sessionStorageにない場合はURLのハッシュをチェック
+    const hash = window.location.hash;
+    if (hash && hash !== '#' && hash !== '#hero') {
+      const sectionName = hash.substring(1);
+
+      // 少し待ってからスムーススクロール
+      setTimeout(() => {
+        const sectionElement = document.querySelector(`[data-section="${sectionName}"]`);
         if (sectionElement) {
           sectionElement.scrollIntoView({
             behavior: 'smooth',
