@@ -22,13 +22,15 @@
         "noUnusedTemplateLiteral": "off"
       },
       "correctness": {
-        "noUndeclaredVariables": "warn",
-        "noUnusedVariables": "warn",
-        "noUnusedImports": "warn",
+        "noUndeclaredVariables": "error",
+        "noUnusedVariables": "error",
+        "noUnusedImports": "error",
         "useUniqueElementIds": "off"
       },
       "suspicious": {
-        "noDuplicateProperties": "off"
+        "noDuplicateProperties": "off",
+        "noExplicitAny": "error",
+        "noImplicitAnyLet": "error"
       }
     }
   },
