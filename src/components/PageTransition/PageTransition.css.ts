@@ -1,4 +1,5 @@
 import { globalStyle, keyframes, style } from '@vanilla-extract/css';
+import { ANIMATION_PRESETS } from '../../constants/animations';
 
 const slideIn = keyframes({
   from: {
@@ -33,11 +34,11 @@ export const hidden = style({
 });
 
 export const slidingIn = style({
-  animation: `${slideIn} 0.9s cubic-bezier(0.8, 0, 0.2, 1) forwards`,
+  animation: `${slideIn} ${ANIMATION_PRESETS.PAGE_SLIDE} forwards`,
 });
 
 export const slidingOut = style({
-  animation: `${slideOut} 0.9s cubic-bezier(0.8, 0, 0.2, 1) forwards`,
+  animation: `${slideOut} ${ANIMATION_PRESETS.PAGE_SLIDE} forwards`,
 });
 
 export const forceVisible = style({

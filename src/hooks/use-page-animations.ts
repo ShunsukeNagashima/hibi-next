@@ -1,4 +1,5 @@
 import { type RefObject, useCallback, useEffect, useRef } from 'react';
+import { PAGE_LOADING_DURATIONS } from '../constants/animations';
 
 interface UsePageAnimationsProps {
   logoContainerRef: RefObject<HTMLDivElement | null>;
@@ -34,7 +35,7 @@ export const usePageAnimations = ({
           logoAnimationRef.current.beginElement();
         }
       }
-    }, 500);
+    }, PAGE_LOADING_DURATIONS.LOGO_DELAY);
 
     // アンカー付きアクセスかチェック
     const hash = window.location.hash;
@@ -53,7 +54,7 @@ export const usePageAnimations = ({
         if (scrollIndicatorRef.current) {
           scrollIndicatorRef.current.style.opacity = '1';
         }
-      }, 2000);
+      }, PAGE_LOADING_DURATIONS.CONTENT_DELAY);
     } else {
       // 通常の場合：ロゴアニメーション開始から2秒後に全て表示
       setTimeout(() => {
@@ -66,7 +67,7 @@ export const usePageAnimations = ({
         if (scrollIndicatorRef.current) {
           scrollIndicatorRef.current.style.opacity = '1';
         }
-      }, 2000);
+      }, PAGE_LOADING_DURATIONS.CONTENT_DELAY);
     }
   }, []);
 
@@ -86,7 +87,7 @@ export const usePageAnimations = ({
             inline: 'end',
           });
         }
-      }, 200);
+      }, PAGE_LOADING_DURATIONS.SCROLL_DELAY);
       return;
     }
 
@@ -105,7 +106,7 @@ export const usePageAnimations = ({
             inline: 'end',
           });
         }
-      }, 200);
+      }, PAGE_LOADING_DURATIONS.SCROLL_DELAY);
     }
   }, []);
 
@@ -141,7 +142,7 @@ export const usePageAnimations = ({
       if (!animationStartedRef.current) {
         startPageAnimations();
       }
-    }, 6000);
+    }, PAGE_LOADING_DURATIONS.FALLBACK_TIMEOUT);
 
     // クリーンアップ
     return () => {
