@@ -6,15 +6,10 @@ import DayCounterOverlay from '../components/Hero/DayCounterOverlay';
 import Hero from '../components/Hero/Hero';
 import { PageLayout } from '../components/Layout/PageLayout';
 import { WorksList } from '../components/WorksList/WorksList';
-import {
-  getAbout,
-  getContact,
-  getGalleries,
-  getWorksByCategory,
-  getWorksCategoryCount,
-} from '../lib/microcms';
+import { getAbout, getContact, getWorksByCategory, getWorksCategoryCount } from '../lib/microcms';
 import type { WorkCategory } from '../types/work';
 import { getWeatherBackgroundImages } from '../utils/weather';
+import { getShuffledGalleryData } from './actions/gallery';
 
 export default async function Home() {
   // 天気APIから背景画像を取得
@@ -22,9 +17,6 @@ export default async function Home() {
 
   // microCMSからデータを取得
   const aboutData = await getAbout();
-  const galleriesResponse = await getGalleries();
-  const architectureWorks = await getWorksByCategory('architecture', 0, 4);
-  const potteryWorks = await getWorksByCategory('pottery', 0, 2);
 
   // WorksListのカテゴリデータを取得
   const categories: Array<{ key: WorkCategory; jp: string; en: string }> = [
@@ -52,6 +44,9 @@ export default async function Home() {
   const contactResponse = await getContact();
   const contactItems = contactResponse?.contents || [];
 
+  // Gallery用のデータをサーバーアクションで取得
+  const { imageSet1, imageSet2, colorImageIndex } = await getShuffledGalleryData();
+
   return (
     <>
       <DayCounterOverlay />
@@ -59,9 +54,9 @@ export default async function Home() {
         <Hero backgroundImages={backgroundImages} dataSection="hero" />
         <About aboutData={aboutData} dataSection="about" />
         <Gallery
-          galleryImages={galleriesResponse.contents || []}
-          architectureWorks={architectureWorks.contents || []}
-          potteryWorks={potteryWorks.contents || []}
+          imageSet1={imageSet1}
+          imageSet2={imageSet2}
+          colorImageIndex={colorImageIndex}
           dataSection="gallery"
         />
         <WorksList categoriesData={categoriesData} dataSection="works-list" />
