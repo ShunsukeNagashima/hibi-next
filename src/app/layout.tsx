@@ -2,6 +2,11 @@ import type { Metadata } from 'next';
 import './globals.css.ts';
 import { PageTransitionWrapper } from '../components/PageTransition';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+if (!siteUrl) {
+  throw new Error('NEXT_PUBLIC_SITE_URL environment variable is required');
+}
+
 export const metadata: Metadata = {
   title: '日々',
   description: 'Portfolio Site',
@@ -11,8 +16,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: '日々',
     description: 'Portfolio Site',
-    images: '/hibi-ogp.png',
-    url: 'https://hibi-atelier.com',
+    images: `${siteUrl}/hibi-ogp.png`,
+    url: siteUrl,
     type: 'website',
     siteName: '日々',
   },
@@ -20,7 +25,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: '日々',
     description: 'Portfolio Site',
-    images: '/hibi-ogp.png',
+    images: `${siteUrl}/hibi-ogp.png`,
   },
 };
 

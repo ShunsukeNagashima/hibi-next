@@ -38,6 +38,11 @@ export async function generateMetadata({ params }: WorkPageProps) {
   const { id } = await params;
   const work = await getWorkData(id);
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  if (!siteUrl) {
+    throw new Error('NEXT_PUBLIC_SITE_URL environment variable is required');
+  }
+
   if (!work) {
     return {
       title: 'Work not found',
@@ -45,7 +50,7 @@ export async function generateMetadata({ params }: WorkPageProps) {
   }
 
   const description = work.summary || work.subtitle || '';
-  const ogImage = work.images?.[0]?.url || '/hibi-ogp.png';
+  const ogImage = work.images?.[0]?.url || `${siteUrl}/hibi-ogp.png`;
 
   return {
     title: `${work.title} - 日々`,
@@ -54,7 +59,7 @@ export async function generateMetadata({ params }: WorkPageProps) {
       title: `${work.title} - 日々`,
       description,
       images: ogImage,
-      url: `https://hibi-atelier.com/works/${work.id}`,
+      url: `${siteUrl}/works/${work.id}`,
       type: 'website',
       siteName: '日々',
     },
