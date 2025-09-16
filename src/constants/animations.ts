@@ -16,9 +16,12 @@ export const BLUR_ANIMATION_DURATIONS = {
 // Page loading animation durations (milliseconds)
 export const PAGE_LOADING_DURATIONS = {
   LOGO_DELAY: 500, // Logo container fade-in delay
-  CONTENT_DELAY: 2000, // Weather background and menu display delay
+  LOGO_ANIMATION_DURATION: 4000, // Logo SVG animation duration
+  OTHER_ELEMENTS_START_DELAY: 2000, // Other elements start delay from logo start (2 seconds into logo animation)
+  OTHER_ELEMENTS_ANIMATION_DURATION: 2000, // Animation duration for background, menu, scroll indicator (to align end timing)
+  CONTENT_DELAY: 2000, // Legacy: Weather background and menu display delay (for anchor access)
   SCROLL_DELAY: 200, // Scroll navigation delay
-  FALLBACK_TIMEOUT: 6000, // Fallback animation timeout
+  FALLBACK_TIMEOUT: 8000, // Fallback animation timeout
 } as const;
 
 // Slot animation durations (seconds) - for day counter

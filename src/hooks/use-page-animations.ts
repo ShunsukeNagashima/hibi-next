@@ -34,6 +34,27 @@ export const usePageAnimations = ({
         if (logoAnimationRef.current && 'beginElement' in logoAnimationRef.current) {
           logoAnimationRef.current.beginElement();
         }
+
+        // ロゴアニメーション開始から2秒後に他の要素を同時表示（終了タイミング統一）
+        setTimeout(() => {
+          // 背景画像・メニュー・スクロールインディケーターを同時に表示開始
+          if (weatherBackgroundRef.current) {
+            weatherBackgroundRef.current.style.opacity = '1';
+            weatherBackgroundRef.current.style.transition = `opacity ${PAGE_LOADING_DURATIONS.OTHER_ELEMENTS_ANIMATION_DURATION}ms ease`;
+            console.log('weatherBackground opacity set to 1');
+          }
+
+          // メニュー表示イベントを発火（同時）
+          window.dispatchEvent(new CustomEvent('showFixedMenu'));
+          console.log('showFixedMenu event dispatched');
+
+          // スクロールインディケーターも同時に表示開始
+          if (scrollIndicatorRef.current) {
+            scrollIndicatorRef.current.style.opacity = '1';
+            scrollIndicatorRef.current.style.transition = `opacity ${PAGE_LOADING_DURATIONS.OTHER_ELEMENTS_ANIMATION_DURATION}ms ease`;
+            console.log('scrollIndicator opacity set to 1');
+          }
+        }, PAGE_LOADING_DURATIONS.OTHER_ELEMENTS_START_DELAY);
       }
     }, PAGE_LOADING_DURATIONS.LOGO_DELAY);
 
@@ -55,20 +76,8 @@ export const usePageAnimations = ({
           scrollIndicatorRef.current.style.opacity = '1';
         }
       }, PAGE_LOADING_DURATIONS.CONTENT_DELAY);
-    } else {
-      // 通常の場合：ロゴアニメーション開始から2秒後に全て表示
-      setTimeout(() => {
-        if (weatherBackgroundRef.current) {
-          weatherBackgroundRef.current.style.opacity = '1';
-        }
-        // メニュー表示イベントを発火
-        console.log('use-page-animations: dispatching showFixedMenu event');
-        window.dispatchEvent(new CustomEvent('showFixedMenu'));
-        if (scrollIndicatorRef.current) {
-          scrollIndicatorRef.current.style.opacity = '1';
-        }
-      }, PAGE_LOADING_DURATIONS.CONTENT_DELAY);
     }
+    // 通常の場合は上記の直列処理で実行済み
   }, []);
 
   const checkAndNavigateToSection = useCallback(() => {
