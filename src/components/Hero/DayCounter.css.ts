@@ -25,6 +25,8 @@ export const slotContainer = style({
   overflow: 'hidden',
   display: 'inline-flex',
   fontWeight: 'semi-bold',
+  width: '48px', // 3桁の数字に対応する固定幅（16px × 3）
+  minWidth: '48px',
 });
 
 export const digitSlot = style({
