@@ -1,5 +1,6 @@
 import { type RefObject, useCallback, useEffect, useRef } from 'react';
 import { PAGE_LOADING_DURATIONS } from '../constants/animations';
+import { shouldShowDayCounter } from '../utils/dayCounterStorage';
 
 interface UsePageAnimationsProps {
   logoContainerRef: RefObject<HTMLDivElement | null>;
@@ -122,10 +123,19 @@ export const usePageAnimations = ({
   useEffect(() => {
     console.log('use-page-animations: useEffect started');
 
+    // DayCounterフェード開始時にロゴアニメーション開始
+    const handleDayCounterFadeStart = () => {
+      console.log('use-page-animations: dayCounterFadeStart received');
+      startPageAnimations();
+    };
+
     // DayCounterOverlay完了をリッスン
     const handleDayCounterComplete = () => {
       console.log('use-page-animations: dayCounterComplete received');
-      startPageAnimations();
+      // DayCounterが表示されない場合はここでアニメーション開始
+      if (!shouldShowDayCounter()) {
+        startPageAnimations();
+      }
       checkAndNavigateToSection();
     };
 
@@ -135,6 +145,7 @@ export const usePageAnimations = ({
     };
 
     // イベントリスナーを追加
+    window.addEventListener('dayCounterFadeStart', handleDayCounterFadeStart);
     window.addEventListener('dayCounterComplete', handleDayCounterComplete);
     window.addEventListener('pageTransitionComplete', handlePageTransitionComplete);
     console.log('use-page-animations: event listeners added');
@@ -155,6 +166,7 @@ export const usePageAnimations = ({
 
     // クリーンアップ
     return () => {
+      window.removeEventListener('dayCounterFadeStart', handleDayCounterFadeStart);
       window.removeEventListener('dayCounterComplete', handleDayCounterComplete);
       window.removeEventListener('pageTransitionComplete', handlePageTransitionComplete);
       clearTimeout(fallbackTimer);

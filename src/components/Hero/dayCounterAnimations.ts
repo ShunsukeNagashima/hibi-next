@@ -12,7 +12,7 @@ export const SLOT_ANIMATION_DURATIONS = {
 // フェードアウト時間（ミリ秒）
 export const FADE_DURATIONS = {
   COUNTER_FADE: 800, // 数字フェードアウト時間
-  OVERLAY_FADE: 4000, // オーバーレイフェードアウト時間
+  OVERLAY_FADE: 3000, // オーバーレイフェードアウト時間（4秒→3秒に短縮）
   COUNTER_TRANSITION: 300, // カウンタートランジション時間
 } as const;
 

@@ -36,6 +36,14 @@ const DayCounterOverlay: React.FC<DayCounterOverlayProps> = ({ onComplete }) => 
         onComplete?.();
       }, FADE_DURATIONS.OVERLAY_FADE);
     }, FADE_DURATIONS.COUNTER_FADE);
+
+    // フェードアウト開始から少し後にロゴアニメーション開始イベントを送信
+    setTimeout(
+      () => {
+        window.dispatchEvent(new CustomEvent('dayCounterFadeStart'));
+      },
+      FADE_DURATIONS.COUNTER_FADE + FADE_DURATIONS.OVERLAY_FADE * 0.1
+    );
   }, [onComplete]);
 
   // コンポーネントマウント時の処理
