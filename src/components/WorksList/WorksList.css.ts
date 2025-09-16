@@ -11,24 +11,24 @@ export const content = style({
   flexDirection: 'row-reverse',
   alignItems: 'start',
   gap: '40px',
-  padding: '20vh 160px 0',
+  margin: '20vh 160px 0',
 
   '@supports': {
     '(height: 100dvh)': {
       height: '70dvh',
-      padding: '20dvh 160px 0',
+      margin: '20dvh 160px 0',
     },
   },
 
   '@media': {
     '(max-width: 768px)': {
-      padding: '20vh 40px 0',
+      margin: '20vh 40px 0',
       gap: '40px',
       height: '70vh',
 
       '@supports': {
         '(height: 100dvh)': {
-          padding: '20dvh 40px 0',
+          margin: '20dvh 40px 0',
           height: '70dvh',
         },
       },
